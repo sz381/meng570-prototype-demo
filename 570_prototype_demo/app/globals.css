@@ -128,3 +128,43 @@
     font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   }
 }
+
+/* ── Landing: the summer-crossing diagram ─────────────────────────────
+   One item leaves in May, disappears into storage, arrives in August.
+   The dot is masked by the storage box, so it reads as "held", not moved.
+   ──────────────────────────────────────────────────────────────────── */
+
+@keyframes relay-travel {
+  0%,
+  4% {
+    left: 0;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  34%,
+  62% {
+    left: calc(50% - 5px);
+  }
+  92% {
+    left: calc(100% - 10px);
+    opacity: 1;
+  }
+  100% {
+    left: calc(100% - 10px);
+    opacity: 0;
+  }
+}
+
+.relay-dot {
+  animation: relay-travel 7s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .relay-dot {
+    animation: none;
+    left: calc(50% - 5px);
+    opacity: 0.35;
+  }
+}

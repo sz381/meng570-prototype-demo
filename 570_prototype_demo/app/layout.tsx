@@ -13,9 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Relay — Three prototypes",
+  title: "Relay — Sell in May. Furnish in August.",
   description:
-    "Students leave furniture in May. New students need it in August. Three prototypes, three bets on who carries it in between.",
+    "One class leaves, another arrives. Relay takes the furniture in between — pickup, storage, delivery. Three prototypes, three bets on who should own it.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
