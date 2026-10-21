@@ -82,7 +82,7 @@ export default function OpsPage() {
     ]);
   }
 
-  const inStorage = stock.filter((entry) => entry.status === "In storage").length;
+  const inStorage = stock.length;
   const reserved = stock.filter((entry) => entry.status === "Reserved").length;
 
   return (
