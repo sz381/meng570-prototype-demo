@@ -24,11 +24,20 @@ const prototypes = [
   {
     href: "/value",
     index: "03",
-    audience: "For sellers who want the most",
+    audience: "For sellers who want more",
     name: "Relay Value",
     line: "Name your price. We sell it in August.",
     detail:
       "Set your asking price and a floor, choose what happens on Sept 15, and we store and list it. You keep the upside and decide on every offer.",
+  },
+  {
+    href: "/ops",
+    index: "04",
+    audience: "For operations",
+    name: "Relay Ops",
+    line: "Stock in. Stock out.",
+    detail:
+      "Every item from pickup to delivery: what came in, what is in storage, what is reserved, and what ships in August.",
   },
 ];
 
@@ -109,8 +118,8 @@ export default function Home() {
             </h1>
             <p className="mt-7 max-w-[38ch] text-[15px] leading-[1.65] text-[#5A6B82]">
               One class leaves, another arrives. Relay takes the furniture in
-              between — pickup, twelve weeks in storage, delivery. Three
-              prototypes, three bets on who should own it.
+              between — pickup, twelve weeks in storage, delivery. Four
+              prototypes, four bets on who should own it.
             </p>
           </div>
 
@@ -124,7 +133,7 @@ export default function Home() {
         <section className="flex flex-col max-lg:mt-10">
           <div className="flex items-center justify-between px-8 py-5 font-mono text-[10px] uppercase tracking-[0.2em] text-[#5A6B82] lg:px-10">
             <span>Prototypes</span>
-            <span>03</span>
+            <span>04</span>
           </div>
 
           <nav className="flex flex-1 flex-col border-t border-[#0B1728]/10">
@@ -132,7 +141,7 @@ export default function Home() {
               <Link
                 key={p.href}
                 href={p.href}
-                className="group flex flex-1 items-center gap-6 border-b border-[#0B1728]/10 px-8 transition-colors duration-300 last:border-b-0 hover:bg-[#122A4E] focus-visible:ring-2 focus-visible:ring-[#122A4E] focus-visible:ring-inset focus-visible:outline-none lg:px-10"
+                className="group flex min-h-[124px] flex-1 items-center gap-6 border-b border-[#0B1728]/10 px-8 transition-colors duration-300 last:border-b-0 hover:bg-[#122A4E] focus-visible:ring-2 focus-visible:ring-[#122A4E] focus-visible:ring-inset focus-visible:outline-none lg:px-10"
               >
                 <span className="w-5 font-mono text-[10px] tracking-[0.18em] text-[#5A6B82] transition-colors duration-300 group-hover:text-[#F0A93B]">
                   {p.index}

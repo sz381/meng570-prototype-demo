@@ -23,4 +23,4 @@ Reserve, Instant and Value all answer the same question from the Define workbook
 
 Instant and Value share the seller persona base, the photo/category/condition screen, and the pickup map. That is intentional (held constant), but a grader will look for what is genuinely different. In the demo, skip the shared screens and spend the time on the moments that differ: **the door re-price** (Instant) and **the floor, fallback and counter-offer dashboard** (Value).
 
-`/ops` still exists but is no longer listed on the hub, because it is an internal tool and hard for classmates to vote on.
+`/ops` (Relay Ops, the internal stock-in/stock-out view) is the fourth card on the hub. It is an internal tool rather than a customer-facing option, so frame it in the presentation as the operations view that supports whichever model wins, not as a fourth thing to vote on.
