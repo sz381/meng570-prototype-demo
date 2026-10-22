@@ -15,20 +15,20 @@ const prototypes = [
   {
     href: "/instant",
     index: "02",
-    audience: "For sellers",
+    audience: "For sellers who want cash",
     name: "Relay Instant",
     line: "Sell it in one pickup.",
     detail:
-      "Three photos, one offer, one pickup window. Paid at the door — and you can still walk away if the crew marks it down.",
+      "One photo-based offer, one pickup window, paid at the door. Relay buys it outright. You can still walk away if the crew marks it down.",
   },
   {
-    href: "/ops",
+    href: "/value",
     index: "03",
-    audience: "For operations",
-    name: "Relay Ops",
-    line: "Stock in. Stock out.",
+    audience: "For sellers who want the most",
+    name: "Relay Value",
+    line: "Name your price. We sell it in August.",
     detail:
-      "Every item from pickup to delivery: what came in, what is in storage, what is reserved, and what ships in August.",
+      "Set your asking price and a floor, choose what happens on Sept 15, and we store and list it. You keep the upside and decide on every offer.",
   },
 ];
 
