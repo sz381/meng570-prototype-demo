@@ -7,18 +7,7 @@ import { useRouter } from "next/navigation";
 import { Check, Locate, MapPin, TriangleAlert } from "lucide-react";
 import { BackButton } from "../_components/back-button";
 
-type Step =
-  | "describe"
-  | "offer"
-  | "pickup"
-  | "door"
-  | "paid"
-  | "price"
-  | "storage"
-  | "rejected";
-
-type Mode = "cash" | "list";
-type Fallback = "donate" | "return" | "auto";
+type Step = "describe" | "offer" | "pickup" | "door" | "paid" | "rejected";
 
 const CATEGORIES = ["Sofa", "Desk", "Chair", "Bed frame", "Dresser", "Mattress"];
 const DAYS = ["Wed 28", "Thu 29", "Fri 30"];
@@ -26,8 +15,6 @@ const WINDOWS = ["9–11", "11–1", "1–3"];
 
 const CASH = 95;
 const DOOR = 80;
-const LIST = 220;
-const PAYOUT = 198;
 
 /* ── building blocks ─────────────────────────────────────────────────── */
 
@@ -123,15 +110,11 @@ export default function SellPage() {
   const [category, setCategory] = useState<string | null>(null);
   const [wear, setWear] = useState<boolean | null>(null);
 
-  const [mode, setMode] = useState<Mode | null>(null);
   const [day, setDay] = useState<string | null>(null);
   const [time, setTime] = useState<string | null>(null);
 
   const [doorChoice, setDoorChoice] = useState<"accept" | "keep" | null>(null);
   const [donated, setDonated] = useState(false);
-
-  const [price, setPrice] = useState(LIST);
-  const [fallback, setFallback] = useState<Fallback | null>(null);
 
   const [coords, setCoords] = useState({ lat: 36.0014, lng: -78.9382 });
   const [address, setAddress] = useState("1200 Campus Walk Ave, Durham");
@@ -143,19 +126,15 @@ export default function SellPage() {
 
   const canDescribe = photos.length === 3 && category !== null && wear !== null;
   const canPickup = day !== null && time !== null;
-  const canPrice = fallback !== null;
 
   function restart() {
     setPhotos([]);
     setCategory(null);
     setWear(null);
-    setMode(null);
     setDay(null);
     setTime(null);
     setDoorChoice(null);
     setDonated(false);
-    setPrice(LIST);
-    setFallback(null);
     setSheetFrac(0.58);
     setStep("describe");
   }
@@ -368,60 +347,48 @@ export default function SellPage() {
         </Rise>
         <Rise delay={110}>
           <h1 className="mt-2 text-[28px] leading-[1.1] font-medium tracking-[-0.03em]">
-            Two ways to sell it.
+            Here&rsquo;s your offer.
           </h1>
         </Rise>
 
         <Rise delay={70} className="mt-6">
-          <button
-            type="button"
-            onClick={() => {
-              setMode("cash");
-              setStep("pickup");
-            }}
-            className="w-full rounded-2xl bg-[#122A4E] p-5 text-left text-white transition-colors hover:bg-[#0E2140] active:translate-y-px"
-          >
-            <p className="text-[30px] leading-none font-medium tracking-[-0.03em]">
+          <div className="rounded-2xl bg-[#122A4E] p-5 text-white">
+            <p className="text-[44px] leading-none font-medium tracking-[-0.04em]">
               ${CASH}
             </p>
             <p className="mt-2 text-[14px] font-medium">Cash today</p>
             <p className="mt-1 text-[12.5px] leading-relaxed text-white/60">
-              We buy it. One pickup this week, paid at the door.
+              We buy it outright. One pickup this week, paid at the door.
             </p>
-            <span className="mt-4 flex h-10 items-center justify-center rounded-lg bg-white text-[13px] font-medium text-[#122A4E]">
-              Take ${CASH}
-            </span>
-          </button>
+          </div>
         </Rise>
 
-        <Rise delay={30} className="mt-3">
-          <button
-            type="button"
-            onClick={() => {
-              setMode("list");
-              setStep("price");
-            }}
-            className="w-full rounded-2xl border border-[#0B1728]/12 bg-white p-5 text-left transition-colors hover:border-[#0B1728]/25 active:translate-y-px"
-          >
-            <p className="text-[30px] leading-none font-medium tracking-[-0.03em]">
-              ${LIST}
-            </p>
-            <p className="mt-2 text-[14px] font-medium">List it</p>
-            <p className="mt-1 text-[12.5px] leading-relaxed text-[#5A6B82]">
-              We store it and sell it for you. Payout when it sells, by
-              September.
-            </p>
-            <span className="mt-4 flex h-10 items-center justify-center rounded-lg bg-[#0B1728]/5 text-[13px] font-medium text-[#0B1728]">
-              List for ${LIST}
-            </span>
-          </button>
+        <Rise delay={40} className="mt-4">
+          <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-[#5A6B82]">
+            Why this price
+          </p>
+          <div className="mt-2 divide-y divide-[#0B1728]/8 rounded-2xl border border-[#0B1728]/10 bg-white px-4 text-[13px]">
+            {[
+              ["Similar pieces resell for", "$180–$240"],
+              ["Condition", wear ? "Some wear" : "No wear"],
+              ["Our cost", "Pickup, 12 weeks storage, inspection"],
+            ].map(([label, value]) => (
+              <div key={label} className="flex justify-between gap-4 py-2.5">
+                <span className="text-[#5A6B82]">{label}</span>
+                <span className="text-right">{value}</span>
+              </div>
+            ))}
+          </div>
         </Rise>
 
         <div className="mt-auto pt-4">
           <Rise delay={0}>
-            <p className="text-center text-[11px] text-[#9AA7B8]">
-              Both include free pickup.
-            </p>
+            <div className="space-y-2.5">
+              <Primary onClick={() => setStep("pickup")}>Take ${CASH}</Primary>
+              <p className="text-center text-[11px] text-[#9AA7B8]">
+                Free pickup. Final price is confirmed at the door.
+              </p>
+            </div>
           </Rise>
         </div>
       </div>
@@ -477,7 +444,7 @@ export default function SellPage() {
 
           <div className="absolute top-[62px] left-6">
             <BackButton
-              onClick={() => setStep(mode === "cash" ? "offer" : "price")}
+              onClick={() => setStep("offer")}
             />
           </div>
 
@@ -615,7 +582,7 @@ export default function SellPage() {
                   setSheetFrac(0.58);
                   return;
                 }
-                setStep(mode === "cash" ? "door" : "storage");
+                setStep("door");
               }}
             >
               {collapsed ? "Choose a time" : "Confirm pickup"}
@@ -819,164 +786,5 @@ export default function SellPage() {
     );
   }
 
-  /* ── 4b · price ────────────────────────────────────────────────────── */
-  if (step === "price") {
-    return (
-      <div className="flex h-full flex-col px-6 pt-[62px] pb-[104px]">
-        <Rise delay={200}>
-          <BackButton onClick={() => setStep("offer")} />
-        </Rise>
-
-        <Rise delay={150}>
-          <h1 className="mt-7 text-[28px] leading-[1.1] font-medium tracking-[-0.03em]">
-            Name your price.
-          </h1>
-        </Rise>
-        <Rise delay={110}>
-          <p className="mt-2 text-[14px] text-[#5A6B82]">
-            Similar {category?.toLowerCase()}s sold for $180–$240.
-          </p>
-        </Rise>
-
-        <Rise delay={70} className="mt-8">
-          <div className="flex items-end justify-between">
-            <span className="text-[12px] text-[#5A6B82]">Your price</span>
-            <span className="text-[34px] leading-none font-medium tracking-[-0.03em]">
-              ${price}
-            </span>
-          </div>
-          <input
-            type="range"
-            min={120}
-            max={300}
-            step={5}
-            value={price}
-            onChange={(event) => setPrice(Number(event.target.value))}
-            className="mt-4 w-full accent-[#122A4E]"
-          />
-          <div className="mt-1 flex justify-between text-[10px] text-[#9AA7B8]">
-            <span>$120</span>
-            <span>$300</span>
-          </div>
-        </Rise>
-
-        <Rise delay={40} className="mt-7">
-          <p className="text-[12px] text-[#5A6B82]">
-            If it hasn&rsquo;t sold by Sept 15
-          </p>
-          <div className="mt-2 space-y-2">
-            {[
-              { key: "donate" as Fallback, title: "Donate it", sub: "To a Duke program" },
-              { key: "return" as Fallback, title: "Return it to me", sub: "$45 handling" },
-              { key: "auto" as Fallback, title: "Auto-reduce 20%", sub: "Try again in September" },
-            ].map((option) => (
-              <button
-                key={option.key}
-                type="button"
-                onClick={() => setFallback(option.key)}
-                className={`flex w-full items-center justify-between rounded-xl border p-3 text-left transition-colors ${
-                  fallback === option.key
-                    ? "border-[#122A4E] bg-[#122A4E]/5"
-                    : "border-[#0B1728]/10 bg-white"
-                }`}
-              >
-                <span>
-                  <span className="block text-[13.5px] font-medium">
-                    {option.title}
-                  </span>
-                  <span className="block text-[11.5px] text-[#5A6B82]">
-                    {option.sub}
-                  </span>
-                </span>
-                <span
-                  className={`size-4 rounded-full border ${
-                    fallback === option.key
-                      ? "border-[#122A4E] bg-[#122A4E]"
-                      : "border-[#0B1728]/20"
-                  }`}
-                />
-              </button>
-            ))}
-          </div>
-        </Rise>
-
-        <div className="mt-auto pt-6">
-          <Rise delay={0}>
-            <Primary disabled={!canPrice} onClick={() => setStep("pickup")}>
-              Book pickup
-            </Primary>
-          </Rise>
-        </div>
-      </div>
-    );
-  }
-
-  /* ── 5b · storage ──────────────────────────────────────────────────── */
-  return (
-    <div className="flex h-full flex-col px-6 pt-[62px] pb-[104px]">
-      <Rise delay={200}>
-        <p className="mt-6 font-mono text-[10px] uppercase tracking-[0.18em] text-[#5A6B82]">
-          Listed · in storage
-        </p>
-      </Rise>
-
-      <Rise delay={160}>
-        <h1 className="mt-2 text-[30px] leading-[1.1] font-medium tracking-[-0.03em]">
-          We&rsquo;ll take it from here.
-        </h1>
-      </Rise>
-      <Rise delay={120}>
-        <p className="mt-2 text-[14px] leading-[1.6] text-[#5A6B82]">
-          We picked it up on {day}. It goes live in August, when buyers arrive.
-        </p>
-      </Rise>
-
-      <Rise delay={80} className="mt-6">
-        <div className="flex gap-3 rounded-2xl border border-[#0B1728]/10 bg-white p-3">
-          <div className="relative size-16 shrink-0 overflow-hidden rounded-lg">
-            <Image src="/img/sofa.jpg" alt="" fill sizes="64px" className="object-cover" />
-          </div>
-          <div className="flex-1">
-            <p className="text-[14px] font-medium">{category}</p>
-            <p className="mt-0.5 text-[12px] text-[#5A6B82]">
-              Listed at ${price}
-            </p>
-            <p className="mt-1 text-[12px] text-[#1F8A5B]">
-              You&rsquo;ll get about ${Math.round(price * 0.9)}
-            </p>
-          </div>
-        </div>
-      </Rise>
-
-      <Rise delay={40} className="mt-3">
-        <div className="grid grid-cols-3 divide-x divide-[#0B1728]/8 rounded-2xl border border-[#0B1728]/10 bg-white py-4 text-center">
-          {[
-            { value: "0", label: "views" },
-            { value: "0", label: "saves" },
-            { value: "63", label: "days to Sept 15" },
-          ].map((stat) => (
-            <div key={stat.label}>
-              <p className="text-[17px] font-medium">{stat.value}</p>
-              <p className="mt-0.5 text-[10px] text-[#9AA7B8]">{stat.label}</p>
-            </div>
-          ))}
-        </div>
-      </Rise>
-
-      <div className="mt-auto pt-6">
-        <Rise delay={0}>
-          <div className="space-y-2.5">
-            <button
-              type="button"
-              onClick={restart}
-              className="h-[52px] w-full rounded-xl border border-[#0B1728]/15 text-[15px] font-medium transition-colors hover:bg-[#0B1728]/[0.04] active:translate-y-px"
-            >
-              Sell another item
-            </button>
-            <Primary onClick={() => router.push("/instant")}>Done</Primary>
-          </div>
-        </Rise>
-      </div>
-    </div>
-  );
+  return null;
 }
