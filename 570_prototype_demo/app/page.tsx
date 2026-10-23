@@ -13,8 +13,17 @@ const prototypes = [
       "Browse pieces inspected in May, reserve before you fly, and pick a delivery window we guarantee in writing.",
   },
   {
-    href: "/instant",
+    href: "/bid",
     index: "02",
+    audience: "For buyers who want a deal",
+    name: "Relay Bid",
+    line: "Your price. Your move.",
+    detail:
+      "Bid on pieces inspected in May. Set a max and we bid for you, $5 at a time. You only pay what it takes to win.",
+  },
+  {
+    href: "/instant",
+    index: "03",
     audience: "For sellers who want cash",
     name: "Relay Instant",
     line: "Sell it in one pickup.",
@@ -23,7 +32,7 @@ const prototypes = [
   },
   {
     href: "/value",
-    index: "03",
+    index: "04",
     audience: "For sellers who want more",
     name: "Relay Value",
     line: "Name your price. We sell it in August.",
@@ -32,7 +41,7 @@ const prototypes = [
   },
   {
     href: "/ops",
-    index: "04",
+    index: "05",
     audience: "For operations",
     name: "Relay Ops",
     line: "Stock in. Stock out.",
@@ -118,8 +127,8 @@ export default function Home() {
             </h1>
             <p className="mt-7 max-w-[38ch] text-[15px] leading-[1.65] text-[#5A6B82]">
               One class leaves, another arrives. Relay takes the furniture in
-              between — pickup, twelve weeks in storage, delivery. Four
-              prototypes, four bets on who should own it.
+              between — pickup, twelve weeks in storage, delivery. Five
+              prototypes, five bets on who should own it.
             </p>
           </div>
 
@@ -133,7 +142,7 @@ export default function Home() {
         <section className="flex flex-col max-lg:mt-10">
           <div className="flex items-center justify-between px-8 py-5 font-mono text-[10px] uppercase tracking-[0.2em] text-[#5A6B82] lg:px-10">
             <span>Prototypes</span>
-            <span>04</span>
+            <span>05</span>
           </div>
 
           <nav className="flex flex-1 flex-col border-t border-[#0B1728]/10">
